@@ -1,6 +1,6 @@
 from libnmap import NmapParser, NmapReport, NmapProcess
-from libnmap.plugins import NmapMongoPlugin
-from nmapp.config import nmapp_config
+from libnmap.plugins.mongodb import NmapMongoPlugin
+from nmapd.config import nmapp_config
 
 class NmapManager(object):
     def __init__(self):
@@ -11,4 +11,6 @@ class NmapManager(object):
         mongodb = NmapMongoPlugin()
         rlist = mongodb.db_get()
         for r in rlist:
-            robj = json.loads(r, cls=NmapReportDecoder) 
+            robj = json.loads(r, cls=NmapReportDecoder)
+            robjlist.append(robj)
+        return robjlist

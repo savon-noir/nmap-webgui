@@ -1,38 +1,43 @@
 import os
-from nmapp.model import NmapManager
-from flask import Flask, render_template, request, redirect
+from nmapd import app
+from nmapd.model import NmapManager
+from flask import render_template, request, redirect
 from werkzeug import secure_filename
-from flask.ext.pymongo import PyMongo
-
-app = Flask(__name__)
 
 nmap_manager = NmapManager()
 app.config['UPLOAD_FOLDER'] = nmap_manager.upload_folder
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index(self):
     return 'Nmap web service'
 
+
 @app.route('/nmap/')
 def nmap_index():
     return render_template('nmap_index.html')
+
 
 @app.route('/nmap/scans/')
 def nmap_scan():
     return render_template('nmap_scans.html')
 
+
 @app.route('/nmap/reports/')
 def nmap_reports():
-    rlist = nmap_manager.list_reports()
+    rlist = nmap_manager.get_reports()
     return render_template('nmap_reports.html', reports=rlist)
+
 
 @app.route('/nmap/compare/')
 def nmap_compare():
     return render_template('nmap_compare.html')
 
+
 @app.route('/test/')
 def html_test():
     return render_template('test.html')
+
 
 @app.route('/nmap/report_upload/', methods=['GET', 'POST'])
 def upload_file():
@@ -51,8 +56,3 @@ def upload_file():
          <input type=submit value=Upload>
     </form>
     '''
-
-
-if __name__ == '__main__':
-    app.debug = True
-    app.run(host='0.0.0.0', port=80)

@@ -4,7 +4,8 @@ __maintainer__ = 'Ronald Bister'
 __email__ =  'mini.pelle@gmail.com'
 __license__ = 'CC-BY'
 __version__ = '0.1'
-__all__ = [ 'nmapp.config', 'nmapp.views' ]
 
-from nmapp.views import *
-from nmapp.model import *
+from flask import Flask
+
+app = Flask(__name__)
+from nmapd import views, config, model
