@@ -9,5 +9,5 @@ setup(
     url='http://pypi.python.org/pypi/nmapd/',
     license='LICENSE.txt',
     description='A small web application to enable you to run nmap scans, parse and compare the results in your browser or via its Restful API',
-    long_description=open('README').read(),
+    long_description=open('README.md').read(),
 )

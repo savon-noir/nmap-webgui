@@ -4,6 +4,9 @@
     <form>
     <fieldset>
         <legend>nmap uploaded reports</legend>
+        {% for r in reports %}
+            {{ r['name'] }}
+        {% endfor %}
     </fieldset>
     </form>
 {% endblock %}
