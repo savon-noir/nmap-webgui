@@ -4,8 +4,10 @@
     <form>
     <fieldset>
         <legend>nmap uploaded reports</legend>
+        {{ msg }}
         {% for r in reports %}
-            {{ r['name'] }}
+            {{ r._name }}
+            {{ r }}
         {% endfor %}
     </fieldset>
     </form>
