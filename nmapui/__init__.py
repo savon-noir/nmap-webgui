@@ -6,8 +6,8 @@ __license__ = 'CC-BY'
 __version__ = '0.1'
 
 from flask import Flask
-from nmapd import config
-from nmapd.manager import NmapManager
+from nmapui import config
+from nmapui.manager import NmapManager
 from flask.ext.login import LoginManager
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -21,4 +21,4 @@ login_manager.login_view = "login"
 db = SQLAlchemy(app)
 
 nmap_manager = NmapManager()
-from nmapd import views, manager
+from nmapui import views, manager

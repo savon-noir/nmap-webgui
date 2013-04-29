@@ -1,6 +1,6 @@
 from libnmap import NmapParser, NmapReport, NmapProcess, ReportDecoder
 from libnmap.plugins.mongodb import NmapMongoPlugin
-from nmapd import config
+from nmapui import config
 import json
 
 class NmapManager(object):

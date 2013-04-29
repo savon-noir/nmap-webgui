@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from nmapd import models, config, app, db
+from nmapui import models, config, app, db
 
 #u = models.User(username='ronald', password='test',  email='ronald@secaas.be', role=config.ROLE_ADMIN)
 #db.session.add(u)

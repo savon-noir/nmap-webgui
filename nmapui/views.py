@@ -1,6 +1,6 @@
 import os
-from nmapd import app, login_manager, nmap_manager
-from nmapd import models
+from nmapui import app, login_manager, nmap_manager
+from nmapui import models
 from flask import render_template, request, redirect, url_for, flash
 from flask.ext.login import login_user, logout_user, login_required
 from werkzeug import secure_filename

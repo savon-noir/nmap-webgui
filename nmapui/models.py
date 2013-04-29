@@ -1,4 +1,4 @@
-from nmapd import db, config
+from nmapui import db, config
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
