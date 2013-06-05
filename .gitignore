@@ -2,3 +2,4 @@
 *.pyc
 migrate.py
 testtools/*
+build/

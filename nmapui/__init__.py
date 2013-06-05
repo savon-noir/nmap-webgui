@@ -1,24 +1,23 @@
 __author__ = 'Ronald Bister'
-__credits__ = [ 'Ronald Bister' ]
-__maintainer__ = 'Ronald Bister'
 __email__ =  'mini.pelle@gmail.com'
 __license__ = 'CC-BY'
 __version__ = '0.1'
 
 from flask import Flask
 from nmapui import config
-from nmapui.manager import NmapManager
+from flask.ext.pymongo import PyMongo
 from flask.ext.login import LoginManager
-from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config.from_object(config)
+
+mongo = PyMongo(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
-db = SQLAlchemy(app)
+from nmapui import views
 
-nmap_manager = NmapManager()
-from nmapui import views, manager
+if __name__ == '__main__':
+    app.run()

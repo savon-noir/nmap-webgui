@@ -5,10 +5,17 @@
     <fieldset>
         <legend>nmap uploaded reports</legend>
         {{ msg }}
-        {% for r in reports %}
-            {{ r._name }}
-            {{ r }}
+        <table>
+        {% for report in reports %}
+            <tr>
+                <td>{{ report['_id'] }}</td>
+                <td>{{ report['status'] }}</td>
+                {% if report['date_done'] %}
+                <td>{{ report['date_done'].strftime('%H:%M %Y-%m-%d') }}</td>
+                {% endif %}
+            </tr>
         {% endfor %}
+        </table>
     </fieldset>
     </form>
 {% endblock %}
