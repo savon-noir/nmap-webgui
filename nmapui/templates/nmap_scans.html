@@ -1,20 +1,14 @@
 {% extends "base.html" %}
 {% block body %}
-    <!--Body content-->
-    <form class="form-horizontal">
+<!--Body content-->
+    <form method="POST" action="/nmap/tasks">
     <fieldset>
- <div class="control-group clearfix">
-    <label class="control-label" for="inputEmail">Email</label>
-  <div class="controls">
-    <input type="text" id="inputEmail" placeholder="Email">
-  </div>
- </div>
         <div>
             <legend>Online nmap scanner</legend>
             <label>Target:</label>
-            <input id="input_target" type="text" placeholder="127.0.0.1">
+            <input id="input_target" name="targets" type="text" placeholder="127.0.0.1">
             <span class="help-block">specify the ip, subnet or domain you want to target</span>
-            <label class="checkbox"><input type="checkbox" value="banner_detection">
+            <label class="checkbox"><input type="checkbox" name="noping" value="noping">
             Do not ping target(s)
             </label>
         </div>
@@ -28,7 +22,7 @@
                 <div id="nmapOptions" class="accordion-body collapse">
                     <div class="accordion-inner">
                         <label>Scan techniques:</label>
-                        <select>
+                        <select name="scantype">
                             <option id="1" value="1">Connect Scan</option>
                             <option id="2" value="2">Syn Scan</option>
                             <option id="3" value="3">Ack Scan</option>
@@ -39,12 +33,12 @@
                             <option id="8" value="8">Xmas Scan</option>
                             <option id="9" value="9">UDP Scan</option>
                         </select>
-                        <label>Ports specification:</label><input type="text" placeholder="22-1024">
+                        <label>Ports specification:</label><input type="text" name="ports" placeholder="22-1024">
                         <span class="help-block">Ex: "22" or "1-65535" or "U:53,111,137,T:21-25,80,139,8080,S:9"</span>
-                        <label class="checkbox"><input type="checkbox" value="os_detection">
+                        <label class="checkbox"><input type="checkbox" name="os" value="os_detection">
                         Enable OS detection
                         </label>
-                        <label class="checkbox"><input type="checkbox" value="banner_detection">
+                        <label class="checkbox"><input type="checkbox" name="banner" value="banner_detection">
                         Enable banner grabbing
                         </label>
                     </div>
