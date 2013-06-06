@@ -28,6 +28,16 @@ class Users(object):
                          email=_dbuser['email'])
         return _user
 
+    @classmethod
+    def add(cls, username=None, email=None, password=None):
+        rval = False
+        if username is not None and email is not None and password is not None:
+            mongo.db.users.insert({'username': username,
+                                   'email': email,
+                                   'password': password})
+            rval = True
+        return rval
+
 class User:
     def __init__(self, id, username, email, password):
         self.id = id
