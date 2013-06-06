@@ -36,7 +36,7 @@ Following packages need to be installed:
 
 This is a draft on how to install and run nmap-webgui:
 
-```
+```bash
     # install packages in a virtualenv or whatever
     $ pip install Flask
     $ pip install Flask-Login
