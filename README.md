@@ -43,6 +43,7 @@ This is a draft on how to install and run nmap-webgui:
     $ pip install celery
 
     $ yum install mongod
+    $ yum install mongod-server
     $ yum install rabbitmq-server
 
     $ git clone https://savon_noir@bitbucket.org/savon_noir/nmap-webgui.git
