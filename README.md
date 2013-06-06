@@ -31,3 +31,23 @@ Following packages need to be installed:
 - flask-scripts via pip (optional)
 - rabbitmq server (no specific config needed)
 - mongodb daemon (to store users data and celery tasks)
+
+##Quick install
+
+This is a draft on how to install and run nmap-webgui:
+
+```
+    $ pip install Flask
+    $ pip install Flask-Login
+    $ pip install Flask-PyMongo
+    $ pip install celery
+
+    $ yum install mongod
+    $ yum install rabbitmq-server
+
+    $ git clone https://savon_noir@bitbucket.org/savon_noir/nmap-webgui.git
+    $ cd nmap-webgui
+    $ python setup.py install
+    $ python manage.py adduser <username> <email>
+    $ python manage.py runserver
+```
