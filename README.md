@@ -37,18 +37,30 @@ Following packages need to be installed:
 This is a draft on how to install and run nmap-webgui:
 
 ```
+    # install packages in a virtualenv or whatever
     $ pip install Flask
     $ pip install Flask-Login
     $ pip install Flask-PyMongo
     $ pip install celery
 
+    # install mongodb and rabbitmq
     $ yum install mongod
     $ yum install mongod-server
     $ yum install rabbitmq-server
 
+    # start rabbitmq and mongodb
+    $ service mongod start
+    $ service rabbitmq-server start
+
+    # install the webgui
     $ git clone https://savon_noir@bitbucket.org/savon_noir/nmap-webgui.git
     $ cd nmap-webgui
     $ python setup.py install
+
+    # run celery
+    $ celery -A nmapui.tasks worker --loglevel=debug
+
+    # add a user, start the web app in debug and login
     $ python manage.py adduser <username> <email>
     $ python manage.py runserver
 ```
