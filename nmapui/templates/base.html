@@ -24,6 +24,10 @@
                 <li {% if request.endpoint == 'nmap_compare' %}class="active"{% endif %}>
                     <a href="/nmap/compare/"><i class="icon-random"></i> Compare</a>
                 </li>
+                <li {% if request.endpoint == 'logout' %}class="active"{% endif %}>
+                    <a href="/logout"><i class="icon-off"></i> Logout</a>
+                </li>
+
             </ul>
         </div>
         <div class="span10">
