@@ -17,7 +17,10 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
-from nmapui import views
+from nmapui.views import ui
+from nmapui.views import nmap
+app.register_blueprint(ui.appmodule)
+app.register_blueprint(nmap.appmodule)
 
 if __name__ == '__main__':
     app.run()
