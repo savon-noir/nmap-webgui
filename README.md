@@ -41,9 +41,11 @@ This is a draft on how to install and run nmap-webgui:
     $ pip install Flask
     $ pip install Flask-Login
     $ pip install Flask-PyMongo
+    $ pip install Flask-Script
+    # for celery, ensure you are running chiastic slide (version > 3)
     $ pip install celery
 
-    # install mongodb and rabbitmq
+    # install mongodb and rabbitmq (the way you want it)
     $ yum install mongod
     $ yum install mongod-server
     $ yum install rabbitmq-server
@@ -51,6 +53,14 @@ This is a draft on how to install and run nmap-webgui:
     # start rabbitmq and mongodb
     $ service mongod start
     $ service rabbitmq-server start
+
+    # install nmap
+    $ yum install nmap
+
+    # install python-libnmap
+    $ git clone https://github.com/savon-noir/python-libnmap.git
+    $ cd python-libnmap
+    $ python setup.py install
 
     # install the webgui
     $ git clone https://savon_noir@bitbucket.org/savon_noir/nmap-webgui.git

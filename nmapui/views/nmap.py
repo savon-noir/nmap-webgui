@@ -51,6 +51,15 @@ def nmap_tasks():
     return render_template('nmap_tasks.html')
 
 
+@appmodule.route('/report/<report_id>')
+@login_required
+def nmap_report(report_id):
+    _report = None
+    if report_id is not None:
+        _report = Reports.find(task_id=report_id)
+    return render_template('nmap_report.html', report=_report)
+
+
 @appmodule.route('/reports/')
 @login_required
 def nmap_reports():

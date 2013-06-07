@@ -5,14 +5,16 @@
     <fieldset>
         <legend>nmap uploaded reports</legend>
         {{ msg }}
-        <table>
+        <table class="table table-striped">
+        <th>Report</th><th>Date done</th><th>Status</th><th>Details</th>
         {% for report in reports %}
             <tr>
                 <td>{{ report['_id'] }}</td>
                 <td>{{ report['status'] }}</td>
                 {% if report['date_done'] %}
-                <td>{{ report['date_done'].strftime('%H:%M %Y-%m-%d') }}</td>
+                    <td>{{ report['date_done'].strftime('%H:%M %Y-%m-%d') }}</td>
                 {% endif %}
+                <td><a href="{{ url_for('nmap.nmap_report', report_id=report['_id']) }}">Details</a></td>
             </tr>
         {% endfor %}
         </table>
