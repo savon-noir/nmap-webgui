@@ -15,7 +15,7 @@ mongo = PyMongo(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "login"
+login_manager.login_view = "ui.login"
 
 from nmapui.views import ui
 from nmapui.views import nmap

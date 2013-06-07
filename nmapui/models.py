@@ -1,6 +1,9 @@
-from nmapui import mongo
+from libnmap.parser import NmapParser, NmapParserException
+from nmapui.celeryapp import celery
 from bson.objectid import ObjectId
+from nmapui import mongo
 import hashlib
+
 
 class Users(object):
     @classmethod
@@ -70,9 +73,21 @@ class Reports(object):
         _reports = []
         _dbreports = mongo.db.reports.find(kwargs)
         for _dbreport in _dbreports:
-            _dbtask = mongo.db.celery_taskmeta.find_one({'_id': _dbreport['task_id']})
-            _reports.append(_dbtask)
+            _nmap_task = celery.AsyncResult(_dbreport['task_id'])
+            _reports.append(_nmap_task)
         return _reports
+
+    @classmethod
+    def get(cls, report_id):
+        _report = None
+        if isinstance(report_id, str) or isinstance(report_id, unicode):
+            try:
+                _resultdict = celery.AsyncResult(report_id).result
+                _resultxml = _resultdict['report']
+                _report = NmapParser.parse_fromstring(_resultxml)
+            except NmapParserException:
+                pass
+        return _resultxml
 
     @classmethod
     def add(cls, user_id=None, task_id=None):

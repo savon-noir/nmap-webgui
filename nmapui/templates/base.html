@@ -16,13 +16,13 @@
                     <a href="/nmap/"><i class="icon-home"></i> Home</a>
                 </li>
                 <li {% if request.endpoint == 'nmap_scan' %}class="active"{% endif %}>
-                    <a href="/nmap/scans/"><i class="icon-fire"></i> Scan</a>
+                    <a href="/nmap/scan"><i class="icon-fire"></i> Scan</a>
                 </li>
-                <li {% if request.endpoint == 'nmap_reports' %}class="active"{% endif %}>
-                    <a href="/nmap/reports/"><i class="icon-book"></i> Reports</a>
+                <li {% if request.endpoint == 'nmap_tasks' %}class="active"{% endif %}>
+                    <a href="/nmap/tasks"><i class="icon-book"></i> Reports</a>
                 </li>
                 <li {% if request.endpoint == 'nmap_compare' %}class="active"{% endif %}>
-                    <a href="/nmap/compare/"><i class="icon-random"></i> Compare</a>
+                    <a href="/nmap/compare"><i class="icon-random"></i> Compare</a>
                 </li>
                 <li {% if request.endpoint == 'logout' %}class="active"{% endif %}>
                     <a href="/logout"><i class="icon-off"></i> Logout</a>

@@ -1,6 +1,30 @@
 {% extends "base.html" %}
 {% block body %}
-<!--Body content-->
-targets: {{targets}}
-options: {{options}}
+    <!--Body content-->
+    <form>
+    <fieldset>
+        <legend>nmap scans status</legend>
+        <table class="table table-striped">
+        <th>Tasks</th><th>Status</th><th>Progress</th><th>Details</th>
+        {% for nmap_task in tasks %}
+            <tr>
+                <td>{{ nmap_task.id }}</td>
+                <td>{{ nmap_task.status }}</td>
+                {% if nmap_task.result and 'done' in nmap_task.result %}
+                    <td>{{ nmap_task.result['done'] }}%</td>
+                {% elif nmap_task.result and 'report' in nmap_task.result %}
+                    <td>100%</td>
+                {% else %}
+                    <td>0%</td>
+                {% endif %}
+                {% if nmap_task.result and 'report' in nmap_task.result %}
+                    <td><a href="{{ url_for('nmap.nmap_report', report_id=nmap_task.id) }}">Details</a></td>
+                {% else %}
+                    <td>Details</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </table>
+    </fieldset>
+    </form>
 {% endblock %}

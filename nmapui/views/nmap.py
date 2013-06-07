@@ -12,7 +12,7 @@ def nmap_index():
     return render_template('nmap_index.html')
 
 
-@appmodule.route('/scans/')
+@appmodule.route('/scan')
 @login_required
 def nmap_scan():
     return render_template('nmap_scans.html')
@@ -47,8 +47,10 @@ def nmap_tasks():
         _celery_task = celery_nmap_scan.delay(targets=str(targets),
                                               options=str(options))
         Reports.add(user_id=current_user.id, task_id=_celery_task.id)
-        return redirect(url_for('nmap.nmap_reports'))
-    return render_template('nmap_tasks.html')
+        return redirect(url_for('nmap.nmap_tasks'))
+
+    _nmap_tasks = Reports.find(user_id=current_user.id)
+    return render_template('nmap_tasks.html', tasks=_nmap_tasks)
 
 
 @appmodule.route('/report/<report_id>')
@@ -56,26 +58,17 @@ def nmap_tasks():
 def nmap_report(report_id):
     _report = None
     if report_id is not None:
-        _report = Reports.find(task_id=report_id)
+        _report = Reports.get(report_id=report_id)
     return render_template('nmap_report.html', report=_report)
 
 
-@appmodule.route('/reports/')
-@login_required
-def nmap_reports():
-    reports = Reports.find(user_id=current_user.id)
-    msg = 'Dumping reports'
-    #    msg = "Error while trying to connect to data store"
-    return render_template('nmap_reports.html', msg=msg, reports=reports)
-
-
-@appmodule.route('/compare/')
+@appmodule.route('/compare')
 @login_required
 def nmap_compare():
     return render_template('nmap_compare.html')
 
 
-@appmodule.route('/test/', methods=['GET', 'POST'])
+@appmodule.route('/test', methods=['GET', 'POST'])
 #@login_required
 def test():
     username = "{0}:{1} {2}".format(current_user.id, current_user.username, type(unicode(current_user.id)))
