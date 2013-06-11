@@ -67,7 +67,7 @@ class User:
         return "<User {0}>".format(self.username)
 
 
-class Reports(object):
+class NmapTask(object):
     @classmethod
     def find(cls, **kwargs):
         _reports = []
@@ -78,16 +78,26 @@ class Reports(object):
         return _reports
 
     @classmethod
-    def get(cls, report_id):
+    def get(cls, task_id):
         _report = None
-        if isinstance(report_id, str) or isinstance(report_id, unicode):
+        if isinstance(task_id, str) or isinstance(task_id, unicode):
             try:
-                _resultdict = celery.AsyncResult(report_id).result
+                _resultdict = celery.AsyncResult(task_id).result
+            except NmapParserException:
+                pass
+        return _resultdict
+
+    @classmethod
+    def get_report(cls, task_id):
+        _report = None
+        if isinstance(task_id, str) or isinstance(task_id, unicode):
+            try:
+                _resultdict = celery.AsyncResult(task_id).result
                 _resultxml = _resultdict['report']
                 _report = NmapParser.parse_fromstring(_resultxml)
             except NmapParserException:
                 pass
-        return _resultxml
+        return _report
 
     @classmethod
     def add(cls, user_id=None, task_id=None):

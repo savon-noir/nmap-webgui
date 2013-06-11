@@ -1,5 +1,5 @@
 from nmapui import app
-from nmapui.models import Reports
+from nmapui.models import NmapTask
 from nmapui.tasks import celery_nmap_scan
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask.ext.login import login_required, current_user
@@ -46,10 +46,10 @@ def nmap_tasks():
                                                   bannerdetect)
         _celery_task = celery_nmap_scan.delay(targets=str(targets),
                                               options=str(options))
-        Reports.add(user_id=current_user.id, task_id=_celery_task.id)
+        NmapTask.add(user_id=current_user.id, task_id=_celery_task.id)
         return redirect(url_for('nmap.nmap_tasks'))
 
-    _nmap_tasks = Reports.find(user_id=current_user.id)
+    _nmap_tasks = NmapTask.find(user_id=current_user.id)
     return render_template('nmap_tasks.html', tasks=_nmap_tasks)
 
 
@@ -58,7 +58,7 @@ def nmap_tasks():
 def nmap_report(report_id):
     _report = None
     if report_id is not None:
-        _report = Reports.get(report_id=report_id)
+        _report = NmapTask.get_report(task_id=report_id)
     return render_template('nmap_report.html', report=_report)
 
 

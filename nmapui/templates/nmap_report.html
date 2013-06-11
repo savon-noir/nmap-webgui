@@ -1,5 +1,46 @@
 {% extends "base.html" %}
 {% block body %}
     <!--Body content-->
-        {{ report }}
+    <form>
+    <fieldset><legend>nmap scan result</legend>
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <table class="table table-striped">
+                <th>Started</th><th>Ended</th><th>Host status</th><th>Open services</th><th>Details</th>
+                {% for scanned_host in report.hosts %}
+                <tr>
+                    <td> {{ scanned_host.starttime }} </td>
+                    <td> {{ scanned_host.endtime }} </td>
+                    <td> {{ scanned_host.status }} </td>
+                    <td> {{ scanned_host.get_open_ports()|count }} </td>
+                    <td>
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{ scanned_host.id|replace('.', '') }}">Details</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="{{ scanned_host.id|replace('.', '') }}" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <table class="table table-striped">
+                                    <th>Service</th><th>Status</th><th>Banner</th>
+                                    {% for scanned_service in scanned_host.services %}
+                                    <tr>
+                                        <td>{{ scanned_service.port }}/{{ scanned_service.protocol }}</td>
+                                        <td>{{ scanned_service.state }}</td>
+                                        <td>{{ scanned_service.banner }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    </fieldset>
+    </form>
 {% endblock %}
