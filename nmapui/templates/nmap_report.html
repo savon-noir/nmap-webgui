@@ -6,13 +6,14 @@
     <div class="accordion" id="accordion2">
         <div class="accordion-group">
             <table class="table table-striped">
-                <th>Started</th><th>Ended</th><th>Host status</th><th>Open services</th><th>Details</th>
+                <th>Host</th><th>Started</th><th>Ended</th><th>Host status</th><th>Open services</th><th>Details</th>
                 {% for scanned_host in report.hosts %}
                 <tr>
-                    <td> {{ scanned_host.starttime }} </td>
-                    <td> {{ scanned_host.endtime }} </td>
+                    <td> {{ scanned_host.address }} </td>
+                    <td> {{ scanned_host.starttime|unix2datetime }} </td>
+                    <td> {{ scanned_host.endtime|unix2datetime }} </td>
                     <td> {{ scanned_host.status }} </td>
-                    <td> {{ scanned_host.get_open_ports()|count }} </td>
+                    <td> {{ scanned_host.get_open_ports()|count }}/{{ scanned_host.get_ports()|count }} </td>
                     <td>
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{ scanned_host.id|replace('.', '') }}">Details</a>
@@ -20,7 +21,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5">
+                    <td colspan="6">
                         <div id="{{ scanned_host.id|replace('.', '') }}" class="accordion-body collapse">
                             <div class="accordion-inner">
                                 <table class="table table-striped">
@@ -33,6 +34,11 @@
                                     </tr>
                                     {% endfor %}
                                 </table>
+                                <br/>
+                                {% if scanned_host.os_fingerprinted %}
+                                Fingerprint: {{ scanned_host.os }}
+                                {% endif %}
+                                Uptime: {{ scanned_host.uptime }}
                             </div>
                         </div>
                     </td>
