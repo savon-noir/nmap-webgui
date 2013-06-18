@@ -13,7 +13,7 @@
                     <td> {{ scanned_host.starttime|unix2datetime }} </td>
                     <td> {{ scanned_host.endtime|unix2datetime }} </td>
                     <td> {{ scanned_host.status }} </td>
-                    <td> {{ scanned_host.get_open_ports()|count }}/{{ scanned_host.get_ports()|count }} </td>
+                    <td> {{ scanned_host.get_open_ports()|count }} </td>
                     <td>
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{ scanned_host.id|replace('.', '') }}">Details</a>

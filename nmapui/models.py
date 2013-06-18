@@ -1,5 +1,5 @@
 from libnmap.parser import NmapParser, NmapParserException
-from nmapui.celeryapp import celery
+from nmapui.celeryapp import celery_pipe
 from bson.objectid import ObjectId
 from nmapui import mongo
 import hashlib
@@ -73,7 +73,7 @@ class NmapTask(object):
         _reports = []
         _dbreports = mongo.db.reports.find(kwargs)
         for _dbreport in _dbreports:
-            _nmap_task = celery.AsyncResult(_dbreport['task_id'])
+            _nmap_task = celery_pipe.AsyncResult(_dbreport['task_id'])
             _reports.append(_nmap_task)
         return _reports
 
@@ -82,7 +82,7 @@ class NmapTask(object):
         _report = None
         if isinstance(task_id, str) or isinstance(task_id, unicode):
             try:
-                _resultdict = celery.AsyncResult(task_id).result
+                _resultdict = celery_pipe.AsyncResult(task_id).result
             except NmapParserException:
                 pass
         return _resultdict
@@ -92,7 +92,7 @@ class NmapTask(object):
         _report = None
         if isinstance(task_id, str) or isinstance(task_id, unicode):
             try:
-                _resultdict = celery.AsyncResult(task_id).result
+                _resultdict = celery_pipe.AsyncResult(task_id).result
                 _resultxml = _resultdict['report']
                 _report = NmapParser.parse_fromstring(_resultxml)
             except NmapParserException:

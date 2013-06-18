@@ -1,6 +1,6 @@
-from nmapui.celeryapp import celery
 from celery import task, current_task
 from libnmap.process import NmapProcess
+from nmapui.celeryapp import celery_pipe as celery
 
 
 @task(name='tasks.nmap_scan')
